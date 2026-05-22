@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <model name="traffic_bar">
+
+    <link name="bar_link">
+      <pose>0 0 0 0 0 0</pose>
+
+      <inertial>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.0001</ixx>
+          <iyy>0.0001</iyy>
+          <izz>0.0001</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.30 0.02 0.05</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.30 0.02 0.05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <pbr>
+            <metal>
+              <albedo_map>model://turtlebot3_autorace/traffic_bar/materials/textures/traffic_bar.png</albedo_map>
+            </metal>
+          </pbr>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="bar_joint" type="revolute">
+      <parent>world</parent>
+      <child>bar_link</child>
+      <pose>-0.15 0 0 0 0 0</pose>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-1.5708</lower>
+          <upper>1.5708</upper>
+          <velocity>2.0</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.2</damping>
+        </dynamics>
+      </axis>
+    </joint>
+
+    <plugin
+      filename="gz-sim-joint-position-controller-system"
+      name="gz::sim::systems::JointPositionController">
+      <joint_name>bar_joint</joint_name>
+      <topic>/model/traffic_bar/joint/bar_joint/0/cmd_pos</topic>
+      <p_gain>20.0</p_gain>
+      <i_gain>0.0</i_gain>
+      <d_gain>1.0</d_gain>
+      <i_max>0.0</i_max>
+      <i_min>0.0</i_min>
+      <cmd_max>10.0</cmd_max>
+      <cmd_min>-10.0</cmd_min>
+    </plugin>
+
+    <plugin
+      filename="libtraffic_bar_plugin.so"
+      name="turtlebot3_gazebo::TrafficBarPlugin">
+      <topic>/model/traffic_bar/joint/bar_joint/0/cmd_pos</topic>
+      <down_position>0.0</down_position>
+      <up_position>-1.5708</up_position>
+      <down_duration>5.0</down_duration>
+      <up_duration>10.0</up_duration>
+      <start_open>false</start_open>
+    </plugin>
+
+  </model>
+</sdf>

@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="traffic_intersection">
+    <static>true</static>
+    <link name="box">
+      <pose>0 0 0 0 0 0</pose>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.12 0.025 0.25</size>
+          </box>
+        </geometry>
+      </collision>
+            <visual name='visual_base_pure_black'>
+        <geometry>
+          <box>
+            <size>0.12 0.025 0.25</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+      </visual>
+
+      <visual name='visual_sticker_front'>
+        <pose>0 -0.013 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.119 0.001 0.249</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <pbr>
+            <metal>
+              <albedo_map>model://turtlebot3_autorace/traffic_intersection/materials/textures/traffic_intersection.png</albedo_map>
+            </metal>
+          </pbr>
+        </material>
+      </visual>
+
+      <visual name='visual_sticker_back'>
+        <pose>0 0.013 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.119 0.001 0.249</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <pbr>
+            <metal>
+              <albedo_map>model://turtlebot3_autorace/traffic_intersection/materials/textures/traffic_intersection.png</albedo_map>
+            </metal>
+          </pbr>
+        </material>
+      </visual>
+    </link>    
+  </model>
+</sdf>
